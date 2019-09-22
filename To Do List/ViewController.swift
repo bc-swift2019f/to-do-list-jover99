@@ -18,6 +18,29 @@ class ViewController: UIViewController {
         tableView.delegate = self //Delegate allows tableView to send messages to ViewController
         tableView.dataSource = self //dataSource tells tableView it's going to get its data from the ViewController
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) { //Override... You have these functions written and executing behind the scenes, we as the programmer wants to modify this function.
+        if segue.identifier == "EditItem" {
+            let destination = segue.destination as! DetailViewController
+            let index = tableView.indexPathForSelectedRow!.row
+            destination.toDoItem = toDoArray[index]
+        } else { //Create an index path for selected row
+            if let selectedPath = tableView.indexPathForSelectedRow {
+                tableView.deselectRow(at: selectedPath, animated: false)
+            }
+        }
+    }
+    
+    @IBAction func unwindFromDetailViewController(segue: UIStoryboardSegue) {
+        let sourceViewController = segue.source as! DetailViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            toDoArray[indexPath.row] = sourceViewController.toDoItem!
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        } else {
+            let newIndexPath = IndexPath(row: toDoArray.count, section: 0)
+            toDoArray.append(sourceViewController.toDoItem!)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource { //Put all of our tableView code down here
