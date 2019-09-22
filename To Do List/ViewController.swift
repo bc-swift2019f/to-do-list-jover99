@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         tableView.delegate = self //Delegate allows tableView to send messages to ViewController
         tableView.dataSource = self //dataSource tells tableView it's going to get its data from the ViewController
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) { //Override... You have these functions written and executing behind the scenes, we as the programmer wants to modify this function.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) { //Override... You have these functions written and executing behind the scenes, we as the programmer want to modify this function.
         if segue.identifier == "EditItem" {
             let destination = segue.destination as! DetailViewController
             let index = tableView.indexPathForSelectedRow!.row

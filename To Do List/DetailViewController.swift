@@ -11,15 +11,16 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var toDoField: UITextField!
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!
     var toDoItem: String? //Declares variable but doesn't initialize it.
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if let toDoItem = toDoItem {
             toDoField.text = toDoItem //Take non-nil item and slap it into text property of to-do field
         }
-
+        enableDisableSaveButton()
+        toDoField.becomeFirstResponder()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -28,6 +29,18 @@ class DetailViewController: UIViewController {
         }
     }
     
+    func enableDisableSaveButton() { //Toggle save button on and off
+            if let toDoFieldCount = toDoField.text?.count, toDoFieldCount > 0 {
+                saveBarButton.isEnabled = true
+            } else {
+                saveBarButton.isEnabled = false
+            }
+        }
+
+    @IBAction func toDoFieldChanged(_ sender: UITextField) {
+        enableDisableSaveButton()
+    }
+
     @IBAction func cancelPressed(_ sender: UIBarButtonItem) {
         let isPresentingInAddMode = presentingViewController is UINavigationController
         if isPresentingInAddMode {
