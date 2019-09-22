@@ -24,10 +24,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="sla-gz-UPm">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sla-gz-UPm" id="l7u-ER-u2A">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -41,7 +41,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="To Do List" id="LDm-US-kC4">
-                        <barButtonItem key="leftBarButtonItem" title="Edit" id="ShC-58-EFe"/>
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="ShC-58-EFe">
+                            <connections>
+                                <action selector="editBarButtonPressed:" destination="BYZ-38-t0r" id="4p0-c0-IXf"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="g9j-Vp-Qea">
                             <connections>
                                 <segue destination="fSp-9u-sKK" kind="presentation" identifier="AddItem" id="3gm-wE-CLB"/>
@@ -49,6 +53,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBarButton" destination="g9j-Vp-Qea" id="p9a-bA-9ME"/>
+                        <outlet property="editBarButton" destination="ShC-58-EFe" id="CSQ-nV-J9D"/>
                         <outlet property="tableView" destination="jJ0-F2-D3H" id="qtw-XW-8v4"/>
                     </connections>
                 </viewController>
