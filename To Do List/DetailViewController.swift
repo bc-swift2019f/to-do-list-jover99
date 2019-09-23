@@ -4,7 +4,7 @@
 //
 //  Created by Richard Jove on 9/20/19.
 //  Copyright © 2019 Richard Jove. All rights reserved.
-//
+// Richard Jové
 
 import UIKit
 
