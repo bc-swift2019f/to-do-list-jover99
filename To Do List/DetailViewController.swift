@@ -12,12 +12,17 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var toDoField: UITextField!
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
+    @IBOutlet weak var toDoNoteView: UITextView!
     var toDoItem: String? //Declares variable but doesn't initialize it.
+    var toDoNoteItem: String? //Won't have anything to pass over if we click on plus sign.
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let toDoItem = toDoItem {
             toDoField.text = toDoItem //Take non-nil item and slap it into text property of to-do field
+        }
+        if let toDoNoteItem = toDoNoteItem {
+            toDoNoteView.text = toDoNoteItem
         }
         enableDisableSaveButton()
         toDoField.becomeFirstResponder()
@@ -26,6 +31,7 @@ class DetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "UnwindFromSave" {
             toDoItem = toDoField.text
+            toDoNoteItem = toDoNoteView.text
         }
     }
     
