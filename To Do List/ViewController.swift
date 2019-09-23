@@ -11,22 +11,28 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editBarButton: UIBarButtonItem!
-    
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     
-    
-    
-    
-    
-    
-    var toDoArray = ["Learn Swift","Build Apps","Change the world!"] //Declared array
-    var toDoNotesArray = ["I should be certain to do all of the exercises at the end of my chapters before the exam", "Take my ideas to the school's venture competition and win the big check.","Focus apps on empowerment for all, with an extra bonus for users who are kind."]
+    var defaultData = UserDefaults.standard
+    var toDoArray = [String]()
+    var toDoNotesArray = [String]() //Why do we need the parentheses here?
+//    var toDoArray = ["Learn Swift","Build Apps","Change the world!"] //Declared array
+//    var toDoNotesArray = ["I should be certain to do all of the exercises at the end of my chapters before the exam", "Take my ideas to the school's venture competition and win the big check.","Focus apps on empowerment for all, with an extra bonus for users who are kind."]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self //Delegate allows tableView to send messages to ViewController
         tableView.dataSource = self //dataSource tells tableView it's going to get its data from the ViewController
+        
+        toDoArray = defaultData.stringArray(forKey: "toDoArray") ?? [String]()
+        toDoNotesArray = defaultData.stringArray(forKey: "toDoNotesArray") ?? [String]()
     }
+    
+    func saveDefaultData() {
+        defaultData.set(toDoArray, forKey: "toDoArray")
+        defaultData.set(toDoNotesArray, forKey: "toDoNotesArray")
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) { //Override... You have these functions written and executing behind the scenes, we as the programmer want to modify this function.
         if segue.identifier == "EditItem" {
             let destination = segue.destination as! DetailViewController
@@ -52,7 +58,9 @@ class ViewController: UIViewController {
             toDoNotesArray.append(sourceViewController.toDoNoteItem!)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
+        saveDefaultData()
     }
+    
     @IBAction func editBarButtonPressed(_ sender: UIBarButtonItem) {
         if tableView.isEditing {
             tableView.setEditing(false, animated: true)
@@ -94,6 +102,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource { //Put all
         toDoNotesArray.remove(at: sourceIndexPath.row)
         toDoArray.insert(itemToMove, at: destinationIndexPath.row)
         toDoNotesArray.insert(noteToMove, at: destinationIndexPath.row)
+        saveDefaultData()
     }
 }
 

@@ -20,8 +20,11 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         if let toDoItem = toDoItem {
             toDoField.text = toDoItem //Take non-nil item and slap it into text property of to-do field
+            self.navigationItem.title = "Edit To Do Item"
+        } else {
+            self.navigationItem.title = "New To Do Item"
         }
-        if let toDoNoteItem = toDoNoteItem {
+        if let toDoNoteItem = toDoNoteItem { //Why don't have to do it here too?
             toDoNoteView.text = toDoNoteItem
         }
         enableDisableSaveButton()
